@@ -1,15 +1,13 @@
 pipeline {
     agent any
-
+    options {
+        // Timeout counter starts AFTER agent is allocated
+        timeout(time: 1, unit: 'SECONDS')
+    }
     stages {
-        stage('Deploy') {
-            when {
-              expression {
-                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
-              }
-            }
+        stage('Example') {
             steps {
-                sh 'make publish'
+                echo 'Hello World'
             }
         }
     }
