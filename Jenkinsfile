@@ -1,13 +1,20 @@
 pipeline {
     agent any
-    options {
-        // Timeout counter starts AFTER agent is allocated
-        timeout(time: 1, unit: 'SECONDS')
-    }
-    stages {
-        stage('Example') {
+     stages {
+        stage('Build') { 
+            steps { 
+                sh 'make' 
+            }
+        }
+        stage('Test'){
             steps {
-                echo 'Hello World'
+                sh 'make check'
+                junit 'reports/**/*.xml' 
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'make publish'
             }
         }
     }
