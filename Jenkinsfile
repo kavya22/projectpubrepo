@@ -2,19 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Buildd') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Hello test'
-            }
-        }
         stage('Deploy') {
+            when {
+              expression {
+                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+              }
+            }
             steps {
-                echo 'Deploying....'
+                sh 'make publish'
             }
         }
     }
