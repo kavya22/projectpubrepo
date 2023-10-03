@@ -9,7 +9,7 @@ pipeline {
         stage('Test'){
             steps {
                 sh 'make check'
-                junit 'reports/**/*.xml' 
+                
             }
         }
         stage('Deploy') {
